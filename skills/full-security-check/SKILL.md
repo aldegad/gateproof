@@ -31,9 +31,10 @@ Review the target with a practical modern security lens:
    - backend service
    - frontend
    - CI/CD and infra config
-2. Read the shared references under `references/`.
-3. Prioritize findings by exploitability and impact.
-4. Produce a report with:
+2. Start with the detailed modern control set under `references/control-model.md` and `references/core-controls.md`.
+3. Use the broader references under `references/` to deepen the review when the target exposes more surface area.
+4. Prioritize findings by exploitability and impact.
+5. Produce a report with:
    - top risks
    - exploit paths or realistic failure modes
    - missing controls
@@ -62,6 +63,8 @@ Write the report in this shape:
 
 ## References
 
+- `references/control-model.md`
+- `references/core-controls.md`
 - `references/modern-baseline.md`
 - `references/kisa-vs-real-risk.md`
 - `references/review-checklist.md`

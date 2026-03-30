@@ -14,6 +14,8 @@ const requiredFiles = [
   "skills/kisa-check/references/control-model.md",
   "skills/kisa-check/references/core-controls.md",
   "skills/kisa-check/references/kisa-baseline.md",
+  "skills/full-security-check/references/control-model.md",
+  "skills/full-security-check/references/core-controls.md",
   "skills/full-security-check/references/modern-baseline.md",
   ".claude/skills/gateproof-kisa-check/SKILL.md",
   ".claude/skills/gateproof-full-security-check/SKILL.md",
