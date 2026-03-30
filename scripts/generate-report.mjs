@@ -158,6 +158,7 @@ function runCodex(config, promptText) {
       "read-only",
       "-m",
       config.model,
+      ...(config.effort ? ["-c", `model_reasoning_effort="${config.effort}"`] : []),
       "-o",
       resolve(ROOT, config.output),
       "-",
