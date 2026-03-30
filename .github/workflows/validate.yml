@@ -21,3 +21,9 @@ jobs:
 
       - name: Validate skill scaffold
         run: npm run skill:validate
+
+      - name: Run baseline evals
+        run: npm run evals:run
+
+      - name: Score report artifacts
+        run: npm run evals:artifacts

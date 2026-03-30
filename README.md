@@ -119,6 +119,7 @@ npm run skill:install
 npm run skill:doctor
 npm run skill:validate
 npm run evals:run
+npm run evals:artifacts
 npm run evals:score -- --eval evals/kisa-baseline.json --case high-risk-api-kisa-gaps --report docs/demo-reports/kisa-check-demo.md
 ```
 
@@ -152,17 +153,20 @@ Use gateproof:full-security-check on this API service and prioritize the top rea
 - Machine-readable fixtures: [fixtures/README.md](./fixtures/README.md)
 - Early eval expectations: [evals/README.md](./evals/README.md)
 - Runnable baseline evals: `npm run evals:run`
+- Artifact batch scoring: `npm run evals:artifacts`
 - Freeform report scoring: `npm run evals:score -- --eval <eval.json> --case <caseId> --report <report.md>`
 
 ## Repository layout
 
 ```text
 gateproof/
+├── artifacts/
 ├── docs/
 │   └── demo-reports/
 ├── evals/
 ├── examples/
 ├── fixtures/
+├── prompts/
 ├── .claude-plugin/
 │   └── marketplace.json
 ├── .claude/
@@ -198,3 +202,4 @@ It is an independent open-source skill set that helps teams separate:
 - add report templates for pull-request reviews and release gates
 - evolve the baseline eval runner toward report-quality scoring against real skill outputs
 - add richer rubric matching so report scoring can grade structure and remediation quality, not just concept coverage
+- add report capture flows for real Codex and Claude runs so artifact scoring can compare outputs over time

@@ -1,0 +1,23 @@
+{
+  "manifestVersion": 1,
+  "reports": [
+    {
+      "artifactId": "demo-api-kisa-report",
+      "skill": "gateproof:kisa-check",
+      "eval": "evals/kisa-baseline.json",
+      "case": "high-risk-api-kisa-gaps",
+      "report": "docs/demo-reports/kisa-check-demo.md",
+      "target": "examples/demo-api/README.md",
+      "prompt": "prompts/demo-api/kisa-check.md"
+    },
+    {
+      "artifactId": "demo-api-full-security-report",
+      "skill": "gateproof:full-security-check",
+      "eval": "evals/full-security-baseline.json",
+      "case": "high-risk-api-modern-risks",
+      "report": "docs/demo-reports/full-security-check-demo.md",
+      "target": "examples/demo-api/README.md",
+      "prompt": "prompts/demo-api/full-security-check.md"
+    }
+  ]
+}

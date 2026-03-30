@@ -25,9 +25,14 @@ const requiredFiles = [
   "fixtures/README.md",
   "fixtures/kisa-ready-app/target.json",
   "fixtures/high-risk-api/target.json",
+  "artifacts/README.md",
+  "artifacts/report-manifest.json",
   "evals/README.md",
   "evals/kisa-baseline.json",
   "evals/full-security-baseline.json",
+  "prompts/README.md",
+  "prompts/demo-api/kisa-check.md",
+  "prompts/demo-api/full-security-check.md",
 ];
 
 const errors = [];
@@ -62,6 +67,16 @@ for (const directoryName of ["fixtures", "evals"]) {
       JSON.parse(readFileSync(jsonFile, "utf8"));
     } catch (error) {
       errors.push(`Invalid JSON in ${jsonFile.replace(`${ROOT}/`, "")}: ${error.message}`);
+    }
+  }
+}
+
+const artifactManifest = JSON.parse(readFileSync(resolve(ROOT, "artifacts", "report-manifest.json"), "utf8"));
+for (const reportEntry of artifactManifest.reports ?? []) {
+  for (const pathKey of ["eval", "report", "target", "prompt"]) {
+    const relativePath = reportEntry[pathKey];
+    if (relativePath && !existsSync(resolve(ROOT, relativePath))) {
+      errors.push(`Artifact ${reportEntry.artifactId} references missing ${pathKey}: ${relativePath}`);
     }
   }
 }

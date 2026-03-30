@@ -9,6 +9,7 @@
     "node": ">=20"
   },
   "scripts": {
+    "evals:artifacts": "node ./scripts/run-evals.mjs --score-manifest artifacts/report-manifest.json",
     "evals:run": "node ./scripts/run-evals.mjs",
     "evals:score": "node ./scripts/run-evals.mjs --score-report",
     "skill:install": "node ./scripts/install.mjs",

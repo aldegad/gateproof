@@ -18,6 +18,7 @@ What already exists:
 - validation, install, and doctor scripts
 - runnable baseline eval script for fixture-backed expectations
 - report scoring mode for grading freeform skill outputs against case assertions
+- artifact manifest and batch scoring flow for saved skill reports
 
 What this means in practice:
 
@@ -89,16 +90,15 @@ The project now includes:
 
 ## Known gaps
 
-- no automated evaluator yet consumes `evals/*.json`
-- eval runner is deterministic baseline logic, not real skill-output grading yet
+- eval runner is still deterministic baseline logic at its core
 - report scoring is concept-based and intentionally lightweight, not a full semantic evaluator
+- real Codex and Claude outputs are not captured automatically yet; reports are still saved manually
 - no machine-generated evidence collection from live targets
 - no versioned coverage matrix against complete KISA or ASVS catalogs
 - no stack-specific variants for Node, Java, Python, Go, Rails, or Spring
 
 ## Near-term next steps
 
-- add an eval runner that checks whether a report hits expected findings
 - add more fixtures with clean, ambiguous, and intentionally risky states
 - add stack-specific guidance packs for common web frameworks
 - add release-gate report templates for PRs and deployment reviews

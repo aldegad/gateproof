@@ -321,10 +321,85 @@ function runReportScoring({ eval: evalPath, case: caseId, report }) {
     process.exit(1);
   }
 }
+
+function runManifestScoring(manifestPath) {
+  if (!manifestPath) {
+    throw new Error("Manifest scoring requires --score-manifest <path>.");
+  }
+
+  const manifest = loadJson(manifestPath);
+  const reports = manifest.reports ?? [];
+  let failedReports = 0;
+
+  process.stdout.write("# Artifact report scoring\n");
+
+  for (const entry of reports) {
+    const evalSet = loadJson(entry.eval);
+    const testCase = evalSet.cases.find((candidate) => candidate.caseId === entry.case);
+
+    if (!testCase) {
+      throw new Error(`Case ${entry.case} was not found in ${entry.eval}.`);
+    }
+
+    if (evalSet.skill !== entry.skill) {
+      throw new Error(
+        `Artifact ${entry.artifactId} declares skill ${entry.skill}, but ${entry.eval} expects ${evalSet.skill}.`,
+      );
+    }
+
+    const reportText = readFileSync(resolve(ROOT, entry.report), "utf8");
+    const result = scoreReportCase(reportText, testCase);
+
+    if (!result.passed) {
+      failedReports += 1;
+    }
+
+    process.stdout.write(`- ${result.passed ? "PASS" : "FAIL"} ${entry.artifactId}\n`);
+    process.stdout.write(`  skill: ${entry.skill}\n`);
+    process.stdout.write(`  eval: ${entry.eval}#${entry.case}\n`);
+    process.stdout.write(`  report: ${entry.report}\n`);
+    process.stdout.write(`  target: ${entry.target}\n`);
+    process.stdout.write(`  score: ${Math.round(result.score * 100)}%\n`);
+
+    if (entry.prompt) {
+      process.stdout.write(`  prompt: ${entry.prompt}\n`);
+    }
+
+    if (result.matched.length > 0) {
+      process.stdout.write("  matched:\n");
+      for (const item of result.matched) {
+        process.stdout.write(`  - ${item}\n`);
+      }
+    }
+
+    if (result.missing.length > 0) {
+      process.stdout.write("  missing:\n");
+      for (const item of result.missing) {
+        process.stdout.write(`  - ${item}\n`);
+      }
+    }
+
+    if (result.forbidden.length > 0) {
+      process.stdout.write("  forbidden_matches:\n");
+      for (const item of result.forbidden) {
+        process.stdout.write(`  - ${item}\n`);
+      }
+    }
+  }
+
+  process.stdout.write(`\nGateproof artifact scoring summary: ${reports.length - failedReports}/${reports.length} reports passed.\n`);
+
+  if (failedReports > 0) {
+    process.exit(1);
+  }
+}
+
 const args = parseArgs(process.argv.slice(2));
 
 if (args["score-report"]) {
   runReportScoring(args);
+} else if (args["score-manifest"]) {
+  runManifestScoring(args["score-manifest"]);
 } else {
   runBaselineEvals();
 }

@@ -14,6 +14,7 @@ npm run skill:validate
 npm run skill:install -- --all
 npm run skill:doctor
 npm run evals:run
+npm run evals:artifacts
 npm run evals:score -- --eval evals/full-security-baseline.json --case high-risk-api-modern-risks --report docs/demo-reports/full-security-check-demo.md
 ```
 
@@ -33,6 +34,10 @@ npm run evals:score -- --eval evals/full-security-baseline.json --case high-risk
   compact machine-readable target profiles
 - `evals/`
   expected finding sets for repeatable quality checks
+- `artifacts/`
+  saved skill-output reports linked to eval cases
+- `prompts/`
+  reusable prompt packs for producing comparable reports
 - `scripts/`
   install, doctor, and validation tooling
 
@@ -122,6 +127,12 @@ Instead, it turns fixture signals into deterministic baseline findings and check
 - whether a freeform markdown or text report hits the required concepts for that case
 - whether the report avoids selected overclaim patterns
 - a simple percentage score based on matched concept assertions
+
+`npm run evals:artifacts` currently checks:
+
+- every report listed in `artifacts/report-manifest.json`
+- eval and case linkage for each saved report artifact
+- prompt-path and target-path references for reproducibility
 
 ## Contribution expectations
 
