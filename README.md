@@ -118,6 +118,7 @@ Installed global skill folders use `gateproof-kisa-check` and `gateproof-full-se
 npm run skill:install
 npm run skill:doctor
 npm run skill:validate
+npm run evals:run
 ```
 
 After install, the two intended skill names are:
@@ -149,6 +150,7 @@ Use gateproof:full-security-check on this API service and prioritize the top rea
 - Contributor and repo workflow guide: [DEVELOPMENT.md](./DEVELOPMENT.md)
 - Machine-readable fixtures: [fixtures/README.md](./fixtures/README.md)
 - Early eval expectations: [evals/README.md](./evals/README.md)
+- Runnable baseline evals: `npm run evals:run`
 
 ## Repository layout
 
@@ -171,6 +173,7 @@ gateproof/
 ├── scripts/
 │   ├── install.mjs
 │   ├── doctor.mjs
+│   ├── run-evals.mjs
 │   └── validate-skills.mjs
 └── skills/
     ├── kisa-check/
@@ -191,3 +194,4 @@ It is an independent open-source skill set that helps teams separate:
 - add fuller OWASP ASVS review guidance by application layer
 - add deployment and cloud review references
 - add report templates for pull-request reviews and release gates
+- evolve the baseline eval runner toward report-quality scoring against real skill outputs

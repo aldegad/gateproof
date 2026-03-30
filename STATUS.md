@@ -16,6 +16,7 @@ What already exists:
 - detailed modern full-security core controls
 - a demo target and paired example reports
 - validation, install, and doctor scripts
+- runnable baseline eval script for fixture-backed expectations
 
 What this means in practice:
 
@@ -88,6 +89,7 @@ The project now includes:
 ## Known gaps
 
 - no automated evaluator yet consumes `evals/*.json`
+- eval runner is deterministic baseline logic, not real skill-output grading yet
 - no machine-generated evidence collection from live targets
 - no versioned coverage matrix against complete KISA or ASVS catalogs
 - no stack-specific variants for Node, Java, Python, Go, Rails, or Spring

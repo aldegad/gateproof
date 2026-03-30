@@ -9,9 +9,9 @@
     "node": ">=20"
   },
   "scripts": {
+    "evals:run": "node ./scripts/run-evals.mjs",
     "skill:install": "node ./scripts/install.mjs",
     "skill:doctor": "node ./scripts/doctor.mjs",
     "skill:validate": "node ./scripts/validate-skills.mjs"
   }
 }
-

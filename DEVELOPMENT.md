@@ -13,6 +13,7 @@ Install and verify:
 npm run skill:validate
 npm run skill:install -- --all
 npm run skill:doctor
+npm run evals:run
 ```
 
 ## Repository structure
@@ -93,7 +94,9 @@ An eval file should answer:
 - which findings must appear
 - which overclaims should be avoided
 
-The current repo does not yet run these evals automatically, but the format is designed to make that possible.
+The repo now includes a lightweight baseline evaluator via `npm run evals:run`.
+It does not invoke an LLM.
+Instead, it turns fixture signals into deterministic baseline findings and checks them against `mustFind` and `shouldAvoid` expectations.
 
 ## Validation rules
 
@@ -105,6 +108,13 @@ The current repo does not yet run these evals automatically, but the format is d
 - required reference documents exist
 - trust-asset documents exist
 - fixture and eval JSON files are valid
+
+`npm run evals:run` currently checks:
+
+- each eval set can be loaded
+- each fixture can be evaluated by the matching skill baseline
+- required findings appear
+- forbidden overclaims do not appear
 
 ## Contribution expectations
 
