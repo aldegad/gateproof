@@ -143,8 +143,11 @@ Use gateproof:full-security-check on this API service and prioritize the top rea
 ## Demo materials
 
 - Sample target: [examples/demo-api](./examples/demo-api/README.md)
+- Healthier sample target: [examples/kisa-ready-service](./examples/kisa-ready-service/README.md)
 - KISA demo report: [docs/demo-reports/kisa-check-demo.md](./docs/demo-reports/kisa-check-demo.md)
 - Full security demo report: [docs/demo-reports/full-security-check-demo.md](./docs/demo-reports/full-security-check-demo.md)
+- KISA healthier report: [docs/demo-reports/kisa-ready-kisa-check-session.md](./docs/demo-reports/kisa-ready-kisa-check-session.md)
+- Full security healthier report: [docs/demo-reports/kisa-ready-full-security-check-session.md](./docs/demo-reports/kisa-ready-full-security-check-session.md)
 - Skill comparison: [docs/demo-reports/skill-comparison.md](./docs/demo-reports/skill-comparison.md)
 
 ## Trust assets

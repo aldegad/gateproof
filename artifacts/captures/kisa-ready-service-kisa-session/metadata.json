@@ -1,0 +1,16 @@
+{
+  "captureId": "kisa-ready-service-kisa-session",
+  "artifactId": "kisa-ready-service-kisa-report",
+  "skill": "gateproof:kisa-check",
+  "eval": "evals/kisa-baseline.json",
+  "case": "kisa-ready-app-baseline",
+  "source": "docs/demo-reports/kisa-ready-kisa-check-session.md",
+  "report": "artifacts/captures/kisa-ready-service-kisa-session/report.md",
+  "target": "examples/kisa-ready-service/README.md",
+  "prompt": "prompts/kisa-ready-service/kisa-check.md",
+  "engine": "session",
+  "model": "current-agent",
+  "capturedAt": "2026-03-30T10:37:19.510Z",
+  "passed": true,
+  "scoreOutput": "artifacts/captures/kisa-ready-service-kisa-session/score.txt"
+}

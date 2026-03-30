@@ -1,0 +1,16 @@
+{
+  "captureId": "kisa-ready-service-full-security-session",
+  "artifactId": "kisa-ready-service-full-security-report",
+  "skill": "gateproof:full-security-check",
+  "eval": "evals/full-security-baseline.json",
+  "case": "kisa-ready-app-no-overclaim",
+  "source": "docs/demo-reports/kisa-ready-full-security-check-session.md",
+  "report": "artifacts/captures/kisa-ready-service-full-security-session/report.md",
+  "target": "examples/kisa-ready-service/README.md",
+  "prompt": "prompts/kisa-ready-service/full-security-check.md",
+  "engine": "session",
+  "model": "current-agent",
+  "capturedAt": "2026-03-30T10:37:49.640Z",
+  "passed": true,
+  "scoreOutput": "artifacts/captures/kisa-ready-service-full-security-session/score.txt"
+}

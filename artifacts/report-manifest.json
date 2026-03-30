@@ -18,6 +18,24 @@
       "report": "docs/demo-reports/full-security-check-demo.md",
       "target": "examples/demo-api/README.md",
       "prompt": "prompts/demo-api/full-security-check.md"
+    },
+    {
+      "artifactId": "kisa-ready-service-kisa-report",
+      "skill": "gateproof:kisa-check",
+      "eval": "evals/kisa-baseline.json",
+      "case": "kisa-ready-app-baseline",
+      "report": "docs/demo-reports/kisa-ready-kisa-check-session.md",
+      "target": "examples/kisa-ready-service/README.md",
+      "prompt": "prompts/kisa-ready-service/kisa-check.md"
+    },
+    {
+      "artifactId": "kisa-ready-service-full-security-report",
+      "skill": "gateproof:full-security-check",
+      "eval": "evals/full-security-baseline.json",
+      "case": "kisa-ready-app-no-overclaim",
+      "report": "docs/demo-reports/kisa-ready-full-security-check-session.md",
+      "target": "examples/kisa-ready-service/README.md",
+      "prompt": "prompts/kisa-ready-service/full-security-check.md"
     }
   ]
 }

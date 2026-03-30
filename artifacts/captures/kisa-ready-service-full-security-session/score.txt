@@ -1,0 +1,9 @@
+# Report scoring (gateproof:full-security-check)
+- eval: full-security-baseline
+- case: kisa-ready-app-no-overclaim
+- report: artifacts/captures/kisa-ready-service-full-security-session/report.md
+- status: PASS
+- score: 100%
+matched:
+- healthier-baseline
+- residual-risk-noted

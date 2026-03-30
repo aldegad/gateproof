@@ -14,7 +14,7 @@ What already exists:
 - hybrid install flow for Codex and Claude
 - detailed KISA-oriented core controls
 - detailed modern full-security core controls
-- a demo target and paired example reports
+- two example targets covering both risky and healthier baselines
 - validation, install, and doctor scripts
 - runnable baseline eval script for fixture-backed expectations
 - report scoring mode for grading freeform skill outputs against case assertions

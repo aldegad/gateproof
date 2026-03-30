@@ -80,6 +80,7 @@ Good example targets should:
 - be small enough to understand quickly
 - include a mix of obvious and non-obvious findings
 - map to both skills in different ways
+- include at least one healthier baseline, not only failure-heavy samples
 - avoid unsafe real credentials or live infrastructure details
 
 ## Adding fixtures

@@ -1,0 +1,34 @@
+name: deploy-ready-service
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test -- --runInBand
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    needs: verify
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t kisa-ready-service .
+      - name: Deploy with managed secret injection
+        env:
+          PROD_API_KEY: ${{ secrets.PROD_API_KEY }}
+        run: ./scripts/deploy.sh

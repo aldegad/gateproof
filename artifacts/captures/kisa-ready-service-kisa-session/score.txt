@@ -1,0 +1,10 @@
+# Report scoring (gateproof:kisa-check)
+- eval: kisa-baseline
+- case: kisa-ready-app-baseline
+- report: artifacts/captures/kisa-ready-service-kisa-session/report.md
+- status: PASS
+- score: 100%
+matched:
+- admin-access-constrained
+- secrets-not-in-source
+- residual-risk-noted
