@@ -15,6 +15,7 @@ npm run skill:install -- --all
 npm run skill:doctor
 npm run evals:run
 npm run evals:artifacts
+npm run reports:generate -- --engine claude --from-manifest demo-api-full-security-report --capture-id demo-api-full-security-live --dry-run
 npm run artifacts:capture -- --from-manifest demo-api-full-security-report --capture-id demo-api-full-security-claude --engine claude --model sonnet
 npm run evals:captures
 npm run evals:score -- --eval evals/full-security-baseline.json --case high-risk-api-modern-risks --report docs/demo-reports/full-security-check-demo.md
@@ -40,6 +41,8 @@ npm run evals:score -- --eval evals/full-security-baseline.json --case high-risk
   saved skill-output reports linked to eval cases
 - `artifacts/captures/`
   concrete captured runs with saved report, metadata, and score output
+- `artifacts/generated/`
+  raw engine outputs before capture
 - `prompts/`
   reusable prompt packs for producing comparable reports
 - `scripts/`
@@ -144,6 +147,14 @@ Instead, it turns fixture signals into deterministic baseline findings and check
 - writes `metadata.json` and `score.txt`
 - updates `artifacts/capture-index.json`
 - immediately scores the captured report against its eval case
+
+`npm run reports:generate -- ...` currently does:
+
+- reads an artifact entry from `artifacts/report-manifest.json`
+- builds an engine-specific prompt using the canonical Gateproof skill and prompt pack
+- runs `codex exec` or `claude -p` in read-only/report mode
+- writes a raw report under `artifacts/generated/`
+- optionally captures and scores the result immediately
 
 `npm run evals:captures` currently checks:
 

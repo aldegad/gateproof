@@ -10,6 +10,7 @@
   },
   "scripts": {
     "artifacts:capture": "node ./scripts/capture-report.mjs",
+    "reports:generate": "node ./scripts/generate-report.mjs",
     "evals:artifacts": "node ./scripts/run-evals.mjs --score-manifest artifacts/report-manifest.json",
     "evals:captures": "node ./scripts/run-evals.mjs --score-captures artifacts/capture-index.json",
     "evals:run": "node ./scripts/run-evals.mjs",
