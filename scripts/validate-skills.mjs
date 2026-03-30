@@ -28,8 +28,8 @@ const requiredFiles = [
   "artifacts/README.md",
   "artifacts/captures/README.md",
   "artifacts/capture-index.json",
-  "artifacts/generated/README.md",
   "artifacts/report-manifest.json",
+  "docs/session-workflow.md",
   "evals/README.md",
   "evals/kisa-baseline.json",
   "evals/full-security-baseline.json",
@@ -37,7 +37,6 @@ const requiredFiles = [
   "prompts/demo-api/kisa-check.md",
   "prompts/demo-api/full-security-check.md",
   "scripts/capture-report.mjs",
-  "scripts/generate-report.mjs",
 ];
 
 const errors = [];

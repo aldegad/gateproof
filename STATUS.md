@@ -20,7 +20,7 @@ What already exists:
 - report scoring mode for grading freeform skill outputs against case assertions
 - artifact manifest and batch scoring flow for saved skill reports
 - captured-run workflow with metadata and replayable scoring
-- direct Codex and Claude adapter script for report generation
+- session-native workflow for current-agent report authoring
 
 What this means in practice:
 
@@ -94,8 +94,7 @@ The project now includes:
 
 - eval runner is still deterministic baseline logic at its core
 - report scoring is concept-based and intentionally lightweight, not a full semantic evaluator
-- direct model adapters exist, but they still benefit from prompt tuning and output normalization
-- live generation may still need prompt tuning or output normalization before reports are consistently score-perfect
+- report authoring still depends on the current agent following the skill well
 - no machine-generated evidence collection from live targets
 - no versioned coverage matrix against complete KISA or ASVS catalogs
 - no stack-specific variants for Node, Java, Python, Go, Rails, or Spring

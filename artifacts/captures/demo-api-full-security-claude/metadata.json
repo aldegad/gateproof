@@ -8,8 +8,8 @@
   "report": "artifacts/captures/demo-api-full-security-claude/report.md",
   "target": "examples/demo-api/README.md",
   "prompt": "prompts/demo-api/full-security-check.md",
-  "engine": "claude",
-  "model": "sonnet",
+  "engine": "reference",
+  "model": "checked-in-demo-report",
   "capturedAt": "2026-03-30T06:41:11.987Z",
   "passed": true,
   "scoreOutput": "artifacts/captures/demo-api-full-security-claude/score.txt"

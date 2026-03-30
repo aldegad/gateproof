@@ -1,6 +1,6 @@
 # Gateproof Prompt Packs
 
-These prompt files make report capture more repeatable.
+These prompt files make current-session report capture more repeatable.
 
 Each prompt should:
 

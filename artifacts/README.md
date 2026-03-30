@@ -25,9 +25,10 @@ Why the manifest exists:
 
 Recommended workflow:
 
-1. Run `gateproof:kisa-check` or `gateproof:full-security-check`
+1. Run `gateproof:kisa-check` or `gateproof:full-security-check` in the current agent session
 2. Save the report as markdown under `artifacts/` or `docs/demo-reports/`
 3. Add or update an entry in `artifacts/report-manifest.json`
-4. Run `npm run evals:artifacts`
+4. Run `npm run artifacts:capture -- --from-manifest <artifactId> --source <report.md> --capture-id <name> --engine session --model current-agent`
+5. Run `npm run evals:captures`
 
 This is the bridge between human-written or LLM-written reports and repeatable repo quality checks.

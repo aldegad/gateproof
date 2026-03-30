@@ -120,8 +120,7 @@ npm run skill:doctor
 npm run skill:validate
 npm run evals:run
 npm run evals:artifacts
-npm run reports:generate -- --engine codex --from-manifest demo-api-kisa-report --capture-id demo-api-kisa-live --dry-run
-npm run artifacts:capture -- --from-manifest demo-api-kisa-report --capture-id demo-api-kisa-codex --engine codex --model gpt-5
+npm run artifacts:capture -- --from-manifest demo-api-kisa-report --source docs/demo-reports/kisa-check-demo.md --capture-id demo-api-kisa-session --engine session --model current-agent
 npm run evals:captures
 npm run evals:score -- --eval evals/kisa-baseline.json --case high-risk-api-kisa-gaps --report docs/demo-reports/kisa-check-demo.md
 ```
@@ -153,13 +152,13 @@ Use gateproof:full-security-check on this API service and prioritize the top rea
 - Current project status: [STATUS.md](./STATUS.md)
 - Research and methodology notes: [RESEARCH.md](./RESEARCH.md)
 - Contributor and repo workflow guide: [DEVELOPMENT.md](./DEVELOPMENT.md)
+- Session-native usage guide: [docs/session-workflow.md](./docs/session-workflow.md)
 - Machine-readable fixtures: [fixtures/README.md](./fixtures/README.md)
 - Early eval expectations: [evals/README.md](./evals/README.md)
 - Runnable baseline evals: `npm run evals:run`
 - Artifact batch scoring: `npm run evals:artifacts`
 - Captured-run scoring: `npm run evals:captures`
-- Engine adapters: `npm run reports:generate -- --engine codex|claude --from-manifest <artifactId> --capture-id <name>`
-- Report capture helper: `npm run artifacts:capture -- --from-manifest <artifactId> --capture-id <name> --engine codex|claude --model <model>`
+- Report capture helper: `npm run artifacts:capture -- --from-manifest <artifactId> --source <report.md> --capture-id <name> --engine session --model current-agent`
 - Freeform report scoring: `npm run evals:score -- --eval <eval.json> --case <caseId> --report <report.md>`
 
 ## Repository layout
@@ -168,9 +167,9 @@ Use gateproof:full-security-check on this API service and prioritize the top rea
 gateproof/
 ├── artifacts/
 │   ├── captures/
-│   └── generated/
 ├── docs/
 │   └── demo-reports/
+│   └── session-workflow.md
 ├── evals/
 ├── examples/
 ├── fixtures/
@@ -187,7 +186,6 @@ gateproof/
 ├── scripts/
 │   ├── install.mjs
 │   ├── doctor.mjs
-│   ├── generate-report.mjs
 │   ├── run-evals.mjs
 │   └── validate-skills.mjs
 └── skills/
@@ -211,4 +209,4 @@ It is an independent open-source skill set that helps teams separate:
 - add report templates for pull-request reviews and release gates
 - evolve the baseline eval runner toward report-quality scoring against real skill outputs
 - add richer rubric matching so report scoring can grade structure and remediation quality, not just concept coverage
-- add stricter post-processing so generated reports can be normalized before scoring
+- add stronger session-native capture ergonomics for main-session and sub-agent workflows
