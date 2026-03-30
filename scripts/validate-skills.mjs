@@ -11,6 +11,8 @@ const requiredFiles = [
   ".claude-plugin/marketplace.json",
   "skills/kisa-check/SKILL.md",
   "skills/full-security-check/SKILL.md",
+  "skills/kisa-check/references/control-model.md",
+  "skills/kisa-check/references/core-controls.md",
   "skills/kisa-check/references/kisa-baseline.md",
   "skills/full-security-check/references/modern-baseline.md",
   ".claude/skills/gateproof-kisa-check/SKILL.md",

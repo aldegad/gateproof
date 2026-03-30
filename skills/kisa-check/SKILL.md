@@ -32,13 +32,14 @@ Do not pretend this is a full modern security review. This skill is intentionall
    - server or VM config
    - cloud deployment config
    - operational documents
-2. Read the KISA references under `references/`.
-3. Score findings as:
+2. Start with the detailed KISA control set under `references/control-model.md` and `references/core-controls.md`.
+3. Use `references/kisa-baseline.md` to extend the review when the target clearly exposes more KISA-relevant scope.
+4. Score findings as:
    - Pass
    - Partial
    - Fail
    - N/A
-4. Produce a concise readiness report with:
+5. Produce a concise readiness report with:
    - summary
    - critical gaps
    - evidence observed
@@ -67,6 +68,8 @@ Write the report in this shape:
 
 ## References
 
+- `references/control-model.md`
+- `references/core-controls.md`
 - `references/kisa-baseline.md`
 - `references/report-template.md`
 - `references/evidence-patterns.md`
