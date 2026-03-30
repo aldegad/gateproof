@@ -17,7 +17,11 @@
             "object and admin authorization failure",
             "object-level authorization risk",
             "authorization checks",
-            "unauthenticated /admin/users route"
+            "unauthenticated /admin/users route",
+            "unauthenticated admin user enumeration",
+            "admin user enumeration",
+            "admin endpoint completely bypasses all auth",
+            "admin route fully unauthenticated"
           ]
         },
         {

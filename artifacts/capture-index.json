@@ -18,6 +18,22 @@
       "scoreOutput": "artifacts/captures/demo-api-full-security-claude/score.txt"
     },
     {
+      "captureId": "demo-api-full-security-live",
+      "artifactId": "demo-api-full-security-report",
+      "skill": "gateproof:full-security-check",
+      "eval": "evals/full-security-baseline.json",
+      "case": "high-risk-api-modern-risks",
+      "source": "artifacts/generated/demo-api-full-security-live.md",
+      "report": "artifacts/captures/demo-api-full-security-live/report.md",
+      "target": "examples/demo-api/README.md",
+      "prompt": "prompts/demo-api/full-security-check.md",
+      "engine": "claude",
+      "model": "sonnet",
+      "capturedAt": "2026-03-30T07:10:33.245Z",
+      "passed": true,
+      "scoreOutput": "artifacts/captures/demo-api-full-security-live/score.txt"
+    },
+    {
       "captureId": "demo-api-kisa-codex",
       "artifactId": "demo-api-kisa-report",
       "skill": "gateproof:kisa-check",

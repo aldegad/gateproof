@@ -104,6 +104,7 @@ function buildConfig(args) {
   return {
     engine: args.engine,
     model: args.model ?? defaultModelForEngine(args.engine),
+    effort: args.effort ?? null,
     artifactId,
     skill,
     skillPath,
@@ -129,6 +130,8 @@ function composePrompt(config) {
     `Required Gateproof skill name: ${config.skill}`,
     "Read the canonical skill file and follow its workflow and output structure.",
     "Inspect the target directly from the filesystem rather than guessing.",
+    "Limit filesystem reads to the target path, the canonical skill file, related Gateproof references, and files directly cited as evidence.",
+    "Do not inspect unrelated directories if they are not needed for the report.",
     "Produce only the final markdown report.",
     "Do not wrap the entire report in code fences.",
     "Do not add commentary before or after the report.",
@@ -183,6 +186,7 @@ function runClaude(config, promptText) {
       config.model,
       "--add-dir",
       ROOT,
+      ...(config.effort ? ["--effort", config.effort] : []),
       promptText,
     ],
     {
@@ -251,6 +255,9 @@ if (config.dryRun) {
   process.stdout.write("# Gateproof report generation plan\n");
   process.stdout.write(`- engine: ${config.engine}\n`);
   process.stdout.write(`- model: ${config.model}\n`);
+  if (config.effort) {
+    process.stdout.write(`- effort: ${config.effort}\n`);
+  }
   process.stdout.write(`- artifact: ${config.artifactId}\n`);
   process.stdout.write(`- skill: ${config.skill}\n`);
   process.stdout.write(`- target: ${config.target}\n`);
@@ -275,6 +282,9 @@ if (!config.noCapture) {
 process.stdout.write("# Gateproof report generation\n");
 process.stdout.write(`- engine: ${config.engine}\n`);
 process.stdout.write(`- model: ${config.model}\n`);
+if (config.effort) {
+  process.stdout.write(`- effort: ${config.effort}\n`);
+}
 process.stdout.write(`- artifact: ${config.artifactId}\n`);
 process.stdout.write(`- output: ${config.output}\n`);
 process.stdout.write(`- captured: ${config.noCapture ? "no" : config.captureId}\n`);

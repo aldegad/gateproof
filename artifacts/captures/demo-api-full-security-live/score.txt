@@ -1,0 +1,10 @@
+# Report scoring (gateproof:full-security-check)
+- eval: full-security-baseline
+- case: high-risk-api-modern-risks
+- report: artifacts/captures/demo-api-full-security-live/report.md
+- status: PASS
+- score: 100%
+matched:
+- authz-risk
+- ssrf-risk
+- cicd-trust-risk
