@@ -1,0 +1,23 @@
+{
+  "fixtureId": "high-risk-api",
+  "intent": "High-risk fixture for full-security and KISA gap detection.",
+  "targetType": "api-service",
+  "signals": {
+    "adminRoutePublic": true,
+    "objectLevelAuthorizationMissing": true,
+    "hardcodedJwtFallback": true,
+    "loginBodyLogged": true,
+    "ciPullRequestTargetWithSecrets": true,
+    "outboundUrlFetchUserControlled": true
+  },
+  "expectedStrengths": [],
+  "expectedGaps": [
+    "KISA-ACS-01",
+    "KISA-ENC-02",
+    "KISA-LOG-01",
+    "MOD-APP-01",
+    "MOD-APP-03",
+    "MOD-DAT-01",
+    "MOD-SUP-02"
+  ]
+}

@@ -142,16 +142,32 @@ Use gateproof:full-security-check on this API service and prioritize the top rea
 - Full security demo report: [docs/demo-reports/full-security-check-demo.md](./docs/demo-reports/full-security-check-demo.md)
 - Skill comparison: [docs/demo-reports/skill-comparison.md](./docs/demo-reports/skill-comparison.md)
 
+## Trust assets
+
+- Current project status: [STATUS.md](./STATUS.md)
+- Research and methodology notes: [RESEARCH.md](./RESEARCH.md)
+- Contributor and repo workflow guide: [DEVELOPMENT.md](./DEVELOPMENT.md)
+- Machine-readable fixtures: [fixtures/README.md](./fixtures/README.md)
+- Early eval expectations: [evals/README.md](./evals/README.md)
+
 ## Repository layout
 
 ```text
 gateproof/
+├── docs/
+│   └── demo-reports/
+├── evals/
+├── examples/
+├── fixtures/
 ├── .claude-plugin/
 │   └── marketplace.json
 ├── .claude/
 │   └── skills/
 │       ├── gateproof-kisa-check/
 │       └── gateproof-full-security-check/
+├── DEVELOPMENT.md
+├── RESEARCH.md
+├── STATUS.md
 ├── scripts/
 │   ├── install.mjs
 │   ├── doctor.mjs

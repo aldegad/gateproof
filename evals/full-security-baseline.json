@@ -1,0 +1,31 @@
+{
+  "evalSet": "full-security-baseline",
+  "skill": "gateproof:full-security-check",
+  "cases": [
+    {
+      "caseId": "high-risk-api-modern-risks",
+      "target": "fixtures/high-risk-api/target.json",
+      "mustFind": [
+        "Object-level authorization risk or missing authorization checks.",
+        "User-controlled outbound fetch creates SSRF or trust-boundary risk.",
+        "CI or delivery pipeline trust boundaries are weak."
+      ],
+      "shouldAvoid": [
+        "Calling the target secure because basic logging exists.",
+        "Stopping at compliance language without exploit-focused analysis."
+      ]
+    },
+    {
+      "caseId": "kisa-ready-app-no-overclaim",
+      "target": "fixtures/kisa-ready-app/target.json",
+      "mustFind": [
+        "The baseline looks healthier than the high-risk fixture.",
+        "Residual risk depends on deployment details not present in the fixture."
+      ],
+      "shouldAvoid": [
+        "Inventing an auth bypass without evidence.",
+        "Assuming a public admin surface when the fixture says otherwise."
+      ]
+    }
+  ]
+}

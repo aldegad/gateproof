@@ -1,0 +1,24 @@
+{
+  "fixtureId": "kisa-ready-app",
+  "intent": "Mostly clean baseline fixture for KISA-oriented readiness checks.",
+  "targetType": "web-service",
+  "signals": {
+    "adminRootLoginDisabled": true,
+    "passwordPolicyDocumented": true,
+    "mfaForAdmins": true,
+    "secretsInSource": false,
+    "auditLogForAdminActions": true,
+    "publicAdminSurface": false,
+    "patchCadenceDefined": true
+  },
+  "expectedStrengths": [
+    "KISA-ACC-01",
+    "KISA-ACC-03",
+    "KISA-ENC-02",
+    "KISA-LOG-02",
+    "KISA-HRD-03"
+  ],
+  "expectedGaps": [
+    "Evidence depth may still depend on deployment proof and log retention details."
+  ]
+}

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -9,6 +9,9 @@ const ROOT = resolve(__dirname, "..");
 
 const requiredFiles = [
   ".claude-plugin/marketplace.json",
+  "STATUS.md",
+  "RESEARCH.md",
+  "DEVELOPMENT.md",
   "skills/kisa-check/SKILL.md",
   "skills/full-security-check/SKILL.md",
   "skills/kisa-check/references/control-model.md",
@@ -19,6 +22,12 @@ const requiredFiles = [
   "skills/full-security-check/references/modern-baseline.md",
   ".claude/skills/gateproof-kisa-check/SKILL.md",
   ".claude/skills/gateproof-full-security-check/SKILL.md",
+  "fixtures/README.md",
+  "fixtures/kisa-ready-app/target.json",
+  "fixtures/high-risk-api/target.json",
+  "evals/README.md",
+  "evals/kisa-baseline.json",
+  "evals/full-security-baseline.json",
 ];
 
 const errors = [];
@@ -40,6 +49,21 @@ for (const skillName of ["kisa-check", "full-security-check"]) {
 const marketplace = readFileSync(resolve(ROOT, ".claude-plugin", "marketplace.json"), "utf8");
 if (!marketplace.includes("./skills/kisa-check") || !marketplace.includes("./skills/full-security-check")) {
   errors.push("marketplace.json must expose both skills");
+}
+
+for (const directoryName of ["fixtures", "evals"]) {
+  const directoryPath = resolve(ROOT, directoryName);
+  const jsonFiles = readdirSync(directoryPath, { recursive: true })
+    .filter((entry) => typeof entry === "string" && entry.endsWith(".json"))
+    .map((entry) => resolve(directoryPath, entry));
+
+  for (const jsonFile of jsonFiles) {
+    try {
+      JSON.parse(readFileSync(jsonFile, "utf8"));
+    } catch (error) {
+      errors.push(`Invalid JSON in ${jsonFile.replace(`${ROOT}/`, "")}: ${error.message}`);
+    }
+  }
 }
 
 if (errors.length > 0) {

@@ -1,0 +1,32 @@
+{
+  "evalSet": "kisa-baseline",
+  "skill": "gateproof:kisa-check",
+  "cases": [
+    {
+      "caseId": "kisa-ready-app-baseline",
+      "target": "fixtures/kisa-ready-app/target.json",
+      "mustFind": [
+        "Admin remote access is constrained.",
+        "Secrets are not embedded in source control.",
+        "Admin activity is auditable."
+      ],
+      "shouldAvoid": [
+        "Claiming confirmed cloud misconfiguration without evidence.",
+        "Claiming active exploitation without runtime proof."
+      ]
+    },
+    {
+      "caseId": "high-risk-api-kisa-gaps",
+      "target": "fixtures/high-risk-api/target.json",
+      "mustFind": [
+        "Public admin surface increases audit risk.",
+        "Secrets handling does not meet baseline expectations.",
+        "Sensitive logging behavior needs remediation."
+      ],
+      "shouldAvoid": [
+        "Ranking every finding as critical.",
+        "Ignoring evidence gaps while asserting pass."
+      ]
+    }
+  ]
+}
