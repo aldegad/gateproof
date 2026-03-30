@@ -1,0 +1,36 @@
+{
+  "name": "gateproof",
+  "owner": {
+    "name": "Soohong Kim",
+    "url": "https://github.com/aldegad"
+  },
+  "metadata": {
+    "description": "Hybrid security review skills for KISA-oriented compliance checks and deeper OWASP-informed security assessments.",
+    "version": "0.1.0",
+    "license": "MIT"
+  },
+  "plugins": [
+    {
+      "name": "gateproof",
+      "description": "Two security review skills: gateproof:kisa-check for KISA-oriented audit readiness, and gateproof:full-security-check for deeper OWASP, ASVS, and NIST-aligned reviews.",
+      "source": "./",
+      "strict": false,
+      "keywords": [
+        "security",
+        "kisa",
+        "owasp",
+        "asvs",
+        "ssdf",
+        "audit",
+        "compliance",
+        "application-security"
+      ],
+      "category": "security",
+      "skills": [
+        "./skills/kisa-check",
+        "./skills/full-security-check"
+      ]
+    }
+  ]
+}
+

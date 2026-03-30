@@ -1,0 +1,17 @@
+{
+  "name": "gateproof",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hybrid Codex and Claude security assessment skills for KISA compliance and full-stack security reviews.",
+  "license": "MIT",
+  "packageManager": "npm@10.9.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "skill:install": "node ./scripts/install.mjs",
+    "skill:doctor": "node ./scripts/doctor.mjs",
+    "skill:validate": "node ./scripts/validate-skills.mjs"
+  }
+}
+
