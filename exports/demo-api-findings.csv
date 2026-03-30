@@ -1,0 +1,9 @@
+track,control_id,title,status,severity,evidence,recommendation
+KISA,KISA-ACS-01,Public admin surface minimization,Fail,High,"Public admin host in ingress.yaml and unauthenticated /admin/users route in src/server.js","Remove public admin exposure and require authenticated admin authorization."
+KISA,KISA-ENC-02,Secrets externalized from source code,Fail,High,"JWT_SECRET fallback and committed user passwords in src/auth.js","Move secrets to runtime injection and rotate exposed values."
+KISA,KISA-LOG-04,Sensitive data exclusion or masking in logs,Fail,High,"Login request bodies are logged in src/server.js","Stop logging sensitive request bodies and mask auth telemetry."
+KISA,KISA-ACC-04,Failed-login lockout or abuse throttling,Fail,Medium,"No visible throttling or lockout around /login in src/server.js","Add rate limiting, lockout, or gateway abuse protections."
+Full Security,MOD-APP-01,Object-level authorization enforcement,Open,Critical,"GET /admin/users returns Object.values(USERS) without an auth check","Protect the route with authenticated admin authorization and private exposure controls."
+Full Security,MOD-APP-03,SSRF and outbound request trust control,Open,Critical,"/preview?url= performs fetch(targetUrl) on attacker-controlled input","Validate destinations, add allowlists, and block private or link-local targets."
+Full Security,MOD-SUP-02,CI/CD trust boundary protection,Open,Critical,"pull_request_target workflow echoes PROD_API_KEY in ci/deploy.yml","Remove privileged secret exposure from untrusted PR execution."
+Full Security,MOD-DAT-01,Secret exposure prevention,Open,High,"Weak fallback JWT secret and plaintext credentials in src/auth.js","Require managed secrets and remove committed credentials."
