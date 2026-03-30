@@ -149,6 +149,7 @@ Use gateproof:full-security-check on this API service and prioritize the top rea
 - KISA healthier report: [docs/demo-reports/kisa-ready-kisa-check-session.md](./docs/demo-reports/kisa-ready-kisa-check-session.md)
 - Full security healthier report: [docs/demo-reports/kisa-ready-full-security-check-session.md](./docs/demo-reports/kisa-ready-full-security-check-session.md)
 - Skill comparison: [docs/demo-reports/skill-comparison.md](./docs/demo-reports/skill-comparison.md)
+- Shareable sample deliverables: [docs/sample-reports/demo-api](./docs/sample-reports/demo-api/README.md)
 
 ## Trust assets
 
@@ -172,6 +173,7 @@ gateproof/
 │   ├── captures/
 ├── docs/
 │   └── demo-reports/
+│   └── sample-reports/
 │   └── session-workflow.md
 ├── evals/
 ├── examples/
