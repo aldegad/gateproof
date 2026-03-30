@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>demo-api-full-security-report.ko</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="exports/report-style.css" />
+</head>
+<body>
+<h1 id="gateproof-full-security-점검-보고서">Gateproof Full Security
+점검 보고서</h1>
+<h2 id="대상">대상</h2>
+<ul>
+<li>프로젝트: <code>examples/demo-api/</code></li>
+<li>점검 트랙: <code>gateproof:full-security-check</code></li>
+</ul>
+<h2 id="종합-의견">종합 의견</h2>
+<p>이 대상은 운영 환경 배포 기준으로 보면 고위험 취약점이 여러 개 동시에
+존재합니다. 관리자 데이터 노출, SSRF, 비밀정보 처리 실패, CI 신뢰경계
+붕괴가 모두 작은 코드베이스 안에서 바로 확인됩니다.</p>
+<p>특히 이슈들이 복잡한 조건 없이 바로 악용 가능하다는 점이 문제입니다.
+즉, 이 보고서는 “하드닝이 부족하다”가 아니라 “공격자가 바로 이용할 수
+있는 취약점이 존재한다”는 의미로 읽는 게 맞습니다.</p>
+<h2 id="최고-위험-항목">최고 위험 항목</h2>
+<h3 id="mod-app-01-객체-수준-권한검사-실패"><code>MOD-APP-01</code> 객체
+수준 권한검사 실패</h3>
+<ul>
+<li>심각도: Critical</li>
+<li>근거:
+<ul>
+<li><code>src/server.js</code>에서 <code>/admin/users</code>가 권한검사
+없이 전체 사용자 목록을 반환</li>
+</ul></li>
+<li>의미:
+<ul>
+<li>관리자 데이터가 인증 없이 노출됩니다.</li>
+</ul></li>
+</ul>
+<h3
+id="mod-app-03-ssrf-및-외부-요청-신뢰경계-실패"><code>MOD-APP-03</code>
+SSRF 및 외부 요청 신뢰경계 실패</h3>
+<ul>
+<li>심각도: Critical</li>
+<li>근거:
+<ul>
+<li><code>src/server.js</code>의 <code>/preview?url=</code>가 사용자
+입력을 그대로 <code>fetch(targetUrl)</code>에 사용</li>
+</ul></li>
+<li>의미:
+<ul>
+<li>내부 서비스, 메타데이터 엔드포인트, 사설 네트워크에 대한 우회 탐색
+경로가 생깁니다.</li>
+</ul></li>
+</ul>
+<h3 id="mod-sup-02-cicd-신뢰경계-실패"><code>MOD-SUP-02</code> CI/CD
+신뢰경계 실패</h3>
+<ul>
+<li>심각도: Critical</li>
+<li>근거:
+<ul>
+<li><code>ci/deploy.yml</code>에서 <code>pull_request_target</code>
+사용</li>
+<li>동일 워크플로에서 <code>PROD_API_KEY</code> 출력</li>
+</ul></li>
+<li>의미:
+<ul>
+<li>신뢰되지 않은 PR 문맥에서 운영 비밀이 노출될 수 있습니다.</li>
+</ul></li>
+</ul>
+<h3 id="mod-dat-01-비밀정보-노출-방지-실패"><code>MOD-DAT-01</code>
+비밀정보 노출 방지 실패</h3>
+<ul>
+<li>심각도: High</li>
+<li>근거:
+<ul>
+<li><code>src/auth.js</code>의 약한 <code>JWT_SECRET</code> 기본값</li>
+<li>동일 파일의 평문 자격증명</li>
+</ul></li>
+<li>의미:
+<ul>
+<li>인증 무결성과 비밀정보 관리 모두 크게 흔들립니다.</li>
+</ul></li>
+</ul>
+<h2 id="공격-시나리오">공격 시나리오</h2>
+<ol type="1">
+<li>외부 사용자가 <code>/admin/users</code>를 호출해 전체 사용자 정보를
+수집합니다.</li>
+<li>공격자가 <code>/preview?url=</code>에 내부 주소를 넣어 SSRF를
+시도합니다.</li>
+<li>악성 PR이 <code>pull_request_target</code>을 통해 CI 로그에 운영
+비밀을 남깁니다.</li>
+<li>기본 JWT 비밀값이 사용되면 토큰 위조 위험이 커집니다.</li>
+</ol>
+<h2 id="보조-결과">보조 결과</h2>
+<table>
+<thead>
+<tr>
+<th>컨트롤</th>
+<th>심각도</th>
+<th>메모</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MOD-AUT-01</code></td>
+<td>High</td>
+<td>강한 관리자 인증 경계가 없음</td>
+</tr>
+<tr>
+<td><code>MOD-AUT-03</code></td>
+<td>High</td>
+<td><code>/login</code>에 시도 제한이 없음</td>
+</tr>
+<tr>
+<td><code>MOD-DAT-02</code></td>
+<td>High</td>
+<td>로그인 요청 본문 로그로 비밀번호 누출 가능</td>
+</tr>
+<tr>
+<td><code>MOD-DAT-03</code></td>
+<td>High</td>
+<td>비밀번호를 평문으로 저장하고 비교</td>
+</tr>
+<tr>
+<td><code>MOD-OPS-03</code></td>
+<td>High</td>
+<td><code>admin.demo.example.com</code>이 공개 노출</td>
+</tr>
+<tr>
+<td><code>MOD-SUP-01</code></td>
+<td>Medium</td>
+<td>의존성 고정 및 스캔 증적이 부족</td>
+</tr>
+</tbody>
+</table>
+<h2 id="우선-조치">우선 조치</h2>
+<ol type="1">
+<li><code>/admin/users</code>를 비공개화하고 인증된 관리자 권한검사를
+강제합니다.</li>
+<li><code>pull_request_target</code>과 운영 비밀 노출 흐름을
+분리합니다.</li>
+<li>하드코딩된 자격증명과 JWT 기본 비밀값을 제거하고 회전합니다.</li>
+<li><code>/preview</code>에 SSRF 차단 로직과 네트워크 제어를
+추가합니다.</li>
+<li>로그인 요청 본문 로깅을 중단하고 시도 제한을 추가합니다.</li>
+</ol>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>demo-api-security-report.ko</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="exports/report-style.css" />
+</head>
+<body>
+<h1 id="gateproof-보안-점검-보고서">Gateproof 보안 점검 보고서</h1>
+<h2 id="대상">대상</h2>
+<ul>
+<li>프로젝트: <code>examples/demo-api/</code></li>
+<li>점검 트랙:
+<ul>
+<li><code>gateproof:kisa-check</code></li>
+<li><code>gateproof:full-security-check</code></li>
+</ul></li>
+<li>점검 방식: 현재 저장소 상태를 기준으로 한 session-native 리뷰</li>
+</ul>
+<h2 id="요약">요약</h2>
+<p><code>examples/demo-api/</code>는 현재 상태로는 한국형 감사 대응
+관점에서도, 실제 운영 보안 관점에서도 배포 적합성이 낮습니다. KISA
+관점에서는 관리자 노출, 비밀정보 관리, 로그인 보호, 로그 위생, 운영
+신뢰경계에서 핵심 실패가 확인됐고, 심화 보안 관점에서는 이 중 여러
+항목이 실제 공격으로 바로 이어질 수 있는 취약점으로 드러났습니다.</p>
+<p>가장 심각한 문제는 인증 없는 관리자 데이터 노출, 사용자 입력 기반
+SSRF, 코드에 포함된 자격증명과 약한 JWT 비밀값, 그리고
+<code>pull_request_target</code> 기반 CI에서 운영 비밀이 노출될 수 있는
+흐름입니다. 이 이슈들은 작은 파일 집합 안에서 바로 보이므로, 문서 보강이
+아니라 즉시 수정이 필요한 엔지니어링 블로커로 보는 것이 맞습니다.</p>
+<h2 id="형식-추천">형식 추천</h2>
+<p>이번 패키지는 용도가 다른 두 형식을 함께 제공합니다.</p>
+<ul>
+<li>PDF: 공유, 결재, 리뷰, 감사 대응용 최종본에 적합</li>
+<li>Excel: 담당자 지정, 조치 추적, 상태 관리용 실무 포맷에 적합</li>
+</ul>
+<p>하나만 선택해야 한다면 PDF가 기본값으로 더 적합합니다. 실행 추적까지
+같이 할 거면 Excel 파일을 함께 쓰는 조합이 가장 좋습니다.</p>
+<h2 id="핵심-결과">핵심 결과</h2>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>트랙</th>
+<th>컨트롤</th>
+<th>상태</th>
+<th>심각도</th>
+<th>핵심 이슈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KISA</td>
+<td><code>KISA-ACS-01</code></td>
+<td>Fail</td>
+<td>High</td>
+<td>공개된 관리자 표면과 인증 없는 관리자 라우트</td>
+</tr>
+<tr>
+<td>KISA</td>
+<td><code>KISA-ENC-02</code></td>
+<td>Fail</td>
+<td>High</td>
+<td>코드에 비밀정보와 자격증명 포함</td>
+</tr>
+<tr>
+<td>KISA</td>
+<td><code>KISA-LOG-04</code></td>
+<td>Fail</td>
+<td>High</td>
+<td>로그인 요청 본문이 로그에 남을 수 있음</td>
+</tr>
+<tr>
+<td>KISA</td>
+<td><code>KISA-ACC-04</code></td>
+<td>Fail</td>
+<td>Medium</td>
+<td>로그인 시도 제한이나 잠금 제어 부재</td>
+</tr>
+<tr>
+<td>Full Security</td>
+<td><code>MOD-APP-01</code></td>
+<td>Open</td>
+<td>Critical</td>
+<td>권한검사 없이 관리자 데이터 노출</td>
+</tr>
+<tr>
+<td>Full Security</td>
+<td><code>MOD-APP-03</code></td>
+<td>Open</td>
+<td>Critical</td>
+<td><code>/preview?url=</code> 기반 SSRF</td>
+</tr>
+<tr>
+<td>Full Security</td>
+<td><code>MOD-SUP-02</code></td>
+<td>Open</td>
+<td>Critical</td>
+<td><code>pull_request_target</code> 워크플로에서
+<code>PROD_API_KEY</code> 노출 가능</td>
+</tr>
+<tr>
+<td>Full Security</td>
+<td><code>MOD-DAT-01</code></td>
+<td>Open</td>
+<td>High</td>
+<td>약한 JWT 기본값과 평문 자격증명</td>
+</tr>
+</tbody>
+</table>
+<h2 id="kisa-관점-평가">KISA 관점 평가</h2>
+<p>KISA 관점에서 보면 이 서비스는 현재 상태로 기본 점검 통과 가능성이
+낮습니다. 특히 다음 항목들이 핵심 실패 포인트입니다.</p>
+<h3 id="주요-실패-항목">주요 실패 항목</h3>
+<ol type="1">
+<li><code>KISA-ACS-01</code> 관리자 표면 최소화
+<ul>
+<li><code>config/ingress.yaml</code>에서
+<code>admin.demo.example.com</code>이 공개 라우팅됨</li>
+<li><code>src/server.js</code>의 <code>/admin/users</code>에 명확한 인증
+게이트가 없음</li>
+</ul></li>
+<li><code>KISA-ENC-02</code> 소스코드 외부 비밀관리
+<ul>
+<li><code>src/auth.js</code>에 <code>JWT_SECRET</code> 기본 문자열이
+존재함</li>
+<li>동일 파일에 사용자 비밀번호가 포함되어 있음</li>
+</ul></li>
+<li><code>KISA-LOG-04</code> 민감정보 로그 제외 또는 마스킹
+<ul>
+<li><code>src/server.js</code>에서 로그인 요청 본문을 그대로 기록함</li>
+</ul></li>
+<li><code>KISA-ACC-04</code> 로그인 실패 제한 또는 잠금
+<ul>
+<li><code>/login</code> 주변에 눈에 띄는 throttling, lockout, 프록시
+차단 정책이 없음</li>
+</ul></li>
+</ol>
+<h3 id="누락된-증적">누락된 증적</h3>
+<ul>
+<li>MFA 같은 강화된 관리자 인증</li>
+<li>ingress 수준의 TLS 강제 증적</li>
+<li>비밀정보 회전 절차</li>
+<li>로그 보관 주기와 리뷰 책임자</li>
+<li>의존성 및 패치 위생 증적</li>
+</ul>
+<h2 id="full-security-관점-평가">Full Security 관점 평가</h2>
+<p>심화 보안 관점에서는 여러 이슈가 단순 체크리스트 수준이 아니라 실제
+공격 경로로 이어집니다.</p>
+<h3 id="최고-위험-이슈">최고 위험 이슈</h3>
+<ol type="1">
+<li><code>MOD-APP-01</code> 객체 수준 권한검사
+<ul>
+<li><code>GET /admin/users</code>가 권한검사 없이 전체 사용자 목록을
+반환함</li>
+</ul></li>
+<li><code>MOD-APP-03</code> SSRF 및 외부 요청 신뢰경계
+<ul>
+<li><code>/preview?url=</code>가 공격자 입력을 그대로
+<code>fetch(targetUrl)</code>에 전달함</li>
+</ul></li>
+<li><code>MOD-SUP-02</code> CI/CD 신뢰경계
+<ul>
+<li>워크플로가 <code>pull_request_target</code>에서 실행됨</li>
+<li><code>PROD_API_KEY</code>가 CI 로그에 출력됨</li>
+</ul></li>
+<li><code>MOD-DAT-01</code> 비밀정보 노출 방지
+<ul>
+<li>하드코딩된 자격증명과 약한 JWT 기본 비밀값이 존재함</li>
+</ul></li>
+</ol>
+<h3 id="가능한-공격-흐름">가능한 공격 흐름</h3>
+<ol type="1">
+<li>외부 사용자가 <code>/admin/users</code>를 호출해 전체 사용자 목록을
+수집함</li>
+<li>공격자가 <code>/preview?url=</code>로 내부 서비스나 메타데이터
+엔드포인트를 탐색함</li>
+<li>신뢰되지 않은 PR이 CI 로그를 통해 운영 비밀을 노출시킴</li>
+<li>런타임 비밀값이 설정되지 않으면 알려진 기본 키로 JWT 위조 가능성이
+생김</li>
+</ol>
+<h2 id="권장-조치-순서">권장 조치 순서</h2>
+<ol type="1">
+<li>관리자 표면 공개를 제거하고 <code>/admin/users</code>에 인증된
+관리자 권한검사를 강제합니다.</li>
+<li>CI에서 운영 비밀이 노출되지 않도록 분리하고, 신뢰된 배포 단계와
+신뢰되지 않은 PR 검증 단계를 분리합니다.</li>
+<li>코드에 포함된 자격증명을 제거하고, 런타임 비밀 주입을 강제한 뒤
+노출된 값을 교체합니다.</li>
+<li><code>/preview</code>에 대해 allowlist, 사설 대역 차단 등 SSRF
+방어를 추가합니다.</li>
+<li>로그인 요청 본문 로깅을 중단하고, 시도 제한이나 잠금 같은 남용
+방어를 추가합니다.</li>
+</ol>
+</body>
+</html>
