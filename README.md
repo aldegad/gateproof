@@ -135,6 +135,13 @@ Use gateproof:kisa-check on this repository and tell me what would likely block 
 Use gateproof:full-security-check on this API service and prioritize the top real-world risks.
 ```
 
+## Demo materials
+
+- Sample target: [examples/demo-api](./examples/demo-api/README.md)
+- KISA demo report: [docs/demo-reports/kisa-check-demo.md](./docs/demo-reports/kisa-check-demo.md)
+- Full security demo report: [docs/demo-reports/full-security-check-demo.md](./docs/demo-reports/full-security-check-demo.md)
+- Skill comparison: [docs/demo-reports/skill-comparison.md](./docs/demo-reports/skill-comparison.md)
+
 ## Repository layout
 
 ```text

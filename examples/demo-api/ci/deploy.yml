@@ -1,0 +1,22 @@
+name: deploy-demo
+
+on:
+  pull_request_target:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t demo-api .
+      - name: Smoke deploy with production secret
+        env:
+          PROD_API_KEY: ${{ secrets.PROD_API_KEY }}
+        run: |
+          echo "deploying with $PROD_API_KEY"
+          ./scripts/deploy.sh
+
