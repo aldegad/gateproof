@@ -19,6 +19,7 @@ What already exists:
 - runnable baseline eval script for fixture-backed expectations
 - report scoring mode for grading freeform skill outputs against case assertions
 - artifact manifest and batch scoring flow for saved skill reports
+- captured-run workflow with metadata and replayable scoring
 
 What this means in practice:
 
@@ -92,7 +93,7 @@ The project now includes:
 
 - eval runner is still deterministic baseline logic at its core
 - report scoring is concept-based and intentionally lightweight, not a full semantic evaluator
-- real Codex and Claude outputs are not captured automatically yet; reports are still saved manually
+- capture flow still assumes you already have a saved report file; direct model invocation adapters are not built yet
 - no machine-generated evidence collection from live targets
 - no versioned coverage matrix against complete KISA or ASVS catalogs
 - no stack-specific variants for Node, Java, Python, Go, Rails, or Spring

@@ -1,0 +1,16 @@
+{
+  "captureId": "demo-api-kisa-codex",
+  "artifactId": "demo-api-kisa-report",
+  "skill": "gateproof:kisa-check",
+  "eval": "evals/kisa-baseline.json",
+  "case": "high-risk-api-kisa-gaps",
+  "source": "docs/demo-reports/kisa-check-demo.md",
+  "report": "artifacts/captures/demo-api-kisa-codex/report.md",
+  "target": "examples/demo-api/README.md",
+  "prompt": "prompts/demo-api/kisa-check.md",
+  "engine": "codex",
+  "model": "gpt-5",
+  "capturedAt": "2026-03-30T06:41:36.093Z",
+  "passed": true,
+  "scoreOutput": "artifacts/captures/demo-api-kisa-codex/score.txt"
+}

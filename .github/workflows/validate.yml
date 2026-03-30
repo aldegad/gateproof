@@ -27,3 +27,6 @@ jobs:
 
       - name: Score report artifacts
         run: npm run evals:artifacts
+
+      - name: Score captured reports
+        run: npm run evals:captures

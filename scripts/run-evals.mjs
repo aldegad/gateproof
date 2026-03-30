@@ -394,12 +394,76 @@ function runManifestScoring(manifestPath) {
   }
 }
 
+function runCaptureIndexScoring(indexPath) {
+  if (!indexPath) {
+    throw new Error("Capture scoring requires --score-captures <path>.");
+  }
+
+  const index = loadJson(indexPath);
+  const captures = index.captures ?? [];
+  let failedCaptures = 0;
+
+  process.stdout.write("# Captured report scoring\n");
+
+  for (const entry of captures) {
+    const evalSet = loadJson(entry.eval);
+    const testCase = evalSet.cases.find((candidate) => candidate.caseId === entry.case);
+
+    if (!testCase) {
+      throw new Error(`Case ${entry.case} was not found in ${entry.eval}.`);
+    }
+
+    const reportText = readFileSync(resolve(ROOT, entry.report), "utf8");
+    const result = scoreReportCase(reportText, testCase);
+
+    if (!result.passed) {
+      failedCaptures += 1;
+    }
+
+    process.stdout.write(`- ${result.passed ? "PASS" : "FAIL"} ${entry.captureId}\n`);
+    process.stdout.write(`  artifact: ${entry.artifactId}\n`);
+    process.stdout.write(`  skill: ${entry.skill}\n`);
+    process.stdout.write(`  engine: ${entry.engine}\n`);
+    process.stdout.write(`  report: ${entry.report}\n`);
+    process.stdout.write(`  score: ${Math.round(result.score * 100)}%\n`);
+
+    if (result.matched.length > 0) {
+      process.stdout.write("  matched:\n");
+      for (const item of result.matched) {
+        process.stdout.write(`  - ${item}\n`);
+      }
+    }
+
+    if (result.missing.length > 0) {
+      process.stdout.write("  missing:\n");
+      for (const item of result.missing) {
+        process.stdout.write(`  - ${item}\n`);
+      }
+    }
+
+    if (result.forbidden.length > 0) {
+      process.stdout.write("  forbidden_matches:\n");
+      for (const item of result.forbidden) {
+        process.stdout.write(`  - ${item}\n`);
+      }
+    }
+  }
+
+  process.stdout.write(`\nGateproof capture scoring summary: ${captures.length - failedCaptures}/${captures.length} captures passed.\n`);
+
+  if (failedCaptures > 0) {
+    process.exit(1);
+  }
+}
+
 const args = parseArgs(process.argv.slice(2));
 
 if (args["score-report"]) {
   runReportScoring(args);
 } else if (args["score-manifest"]) {
   runManifestScoring(args["score-manifest"]);
+} else if (args["score-captures"]) {
+  runCaptureIndexScoring(args["score-captures"]);
 } else {
   runBaselineEvals();
 }

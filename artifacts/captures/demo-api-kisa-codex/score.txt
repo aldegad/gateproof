@@ -1,0 +1,10 @@
+# Report scoring (gateproof:kisa-check)
+- eval: kisa-baseline
+- case: high-risk-api-kisa-gaps
+- report: artifacts/captures/demo-api-kisa-codex/report.md
+- status: PASS
+- score: 100%
+matched:
+- public-admin-risk
+- secret-handling-risk
+- sensitive-logging-risk

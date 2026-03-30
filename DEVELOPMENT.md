@@ -15,6 +15,8 @@ npm run skill:install -- --all
 npm run skill:doctor
 npm run evals:run
 npm run evals:artifacts
+npm run artifacts:capture -- --from-manifest demo-api-full-security-report --capture-id demo-api-full-security-claude --engine claude --model sonnet
+npm run evals:captures
 npm run evals:score -- --eval evals/full-security-baseline.json --case high-risk-api-modern-risks --report docs/demo-reports/full-security-check-demo.md
 ```
 
@@ -36,6 +38,8 @@ npm run evals:score -- --eval evals/full-security-baseline.json --case high-risk
   expected finding sets for repeatable quality checks
 - `artifacts/`
   saved skill-output reports linked to eval cases
+- `artifacts/captures/`
+  concrete captured runs with saved report, metadata, and score output
 - `prompts/`
   reusable prompt packs for producing comparable reports
 - `scripts/`
@@ -133,6 +137,18 @@ Instead, it turns fixture signals into deterministic baseline findings and check
 - every report listed in `artifacts/report-manifest.json`
 - eval and case linkage for each saved report artifact
 - prompt-path and target-path references for reproducibility
+
+`npm run artifacts:capture -- ...` currently does:
+
+- copies a saved report into `artifacts/captures/<capture-id>/report.md`
+- writes `metadata.json` and `score.txt`
+- updates `artifacts/capture-index.json`
+- immediately scores the captured report against its eval case
+
+`npm run evals:captures` currently checks:
+
+- every capture listed in `artifacts/capture-index.json`
+- whether each captured report still satisfies its linked eval case
 
 ## Contribution expectations
 

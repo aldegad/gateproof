@@ -120,6 +120,8 @@ npm run skill:doctor
 npm run skill:validate
 npm run evals:run
 npm run evals:artifacts
+npm run artifacts:capture -- --from-manifest demo-api-kisa-report --capture-id demo-api-kisa-codex --engine codex --model gpt-5
+npm run evals:captures
 npm run evals:score -- --eval evals/kisa-baseline.json --case high-risk-api-kisa-gaps --report docs/demo-reports/kisa-check-demo.md
 ```
 
@@ -154,6 +156,8 @@ Use gateproof:full-security-check on this API service and prioritize the top rea
 - Early eval expectations: [evals/README.md](./evals/README.md)
 - Runnable baseline evals: `npm run evals:run`
 - Artifact batch scoring: `npm run evals:artifacts`
+- Captured-run scoring: `npm run evals:captures`
+- Report capture helper: `npm run artifacts:capture -- --from-manifest <artifactId> --capture-id <name> --engine codex|claude --model <model>`
 - Freeform report scoring: `npm run evals:score -- --eval <eval.json> --case <caseId> --report <report.md>`
 
 ## Repository layout
@@ -161,6 +165,7 @@ Use gateproof:full-security-check on this API service and prioritize the top rea
 ```text
 gateproof/
 ├── artifacts/
+│   └── captures/
 ├── docs/
 │   └── demo-reports/
 ├── evals/
@@ -202,4 +207,4 @@ It is an independent open-source skill set that helps teams separate:
 - add report templates for pull-request reviews and release gates
 - evolve the baseline eval runner toward report-quality scoring against real skill outputs
 - add richer rubric matching so report scoring can grade structure and remediation quality, not just concept coverage
-- add report capture flows for real Codex and Claude runs so artifact scoring can compare outputs over time
+- add direct CLI adapters for Codex and Claude so captures can be created from one command instead of a saved source report

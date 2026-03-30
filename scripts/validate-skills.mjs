@@ -26,6 +26,8 @@ const requiredFiles = [
   "fixtures/kisa-ready-app/target.json",
   "fixtures/high-risk-api/target.json",
   "artifacts/README.md",
+  "artifacts/captures/README.md",
+  "artifacts/capture-index.json",
   "artifacts/report-manifest.json",
   "evals/README.md",
   "evals/kisa-baseline.json",
@@ -33,6 +35,7 @@ const requiredFiles = [
   "prompts/README.md",
   "prompts/demo-api/kisa-check.md",
   "prompts/demo-api/full-security-check.md",
+  "scripts/capture-report.mjs",
 ];
 
 const errors = [];
@@ -77,6 +80,16 @@ for (const reportEntry of artifactManifest.reports ?? []) {
     const relativePath = reportEntry[pathKey];
     if (relativePath && !existsSync(resolve(ROOT, relativePath))) {
       errors.push(`Artifact ${reportEntry.artifactId} references missing ${pathKey}: ${relativePath}`);
+    }
+  }
+}
+
+const captureIndex = JSON.parse(readFileSync(resolve(ROOT, "artifacts", "capture-index.json"), "utf8"));
+for (const captureEntry of captureIndex.captures ?? []) {
+  for (const pathKey of ["eval", "report", "target", "prompt", "scoreOutput"]) {
+    const relativePath = captureEntry[pathKey];
+    if (relativePath && !existsSync(resolve(ROOT, relativePath))) {
+      errors.push(`Capture ${captureEntry.captureId} references missing ${pathKey}: ${relativePath}`);
     }
   }
 }
