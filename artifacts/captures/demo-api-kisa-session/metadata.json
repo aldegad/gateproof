@@ -1,0 +1,16 @@
+{
+  "captureId": "demo-api-kisa-session",
+  "artifactId": "demo-api-kisa-report",
+  "skill": "gateproof:kisa-check",
+  "eval": "evals/kisa-baseline.json",
+  "case": "high-risk-api-kisa-gaps",
+  "source": "docs/demo-reports/kisa-check-session.md",
+  "report": "artifacts/captures/demo-api-kisa-session/report.md",
+  "target": "examples/demo-api/README.md",
+  "prompt": "prompts/demo-api/kisa-check.md",
+  "engine": "session",
+  "model": "current-agent",
+  "capturedAt": "2026-03-30T10:32:21.630Z",
+  "passed": true,
+  "scoreOutput": "artifacts/captures/demo-api-kisa-session/score.txt"
+}
