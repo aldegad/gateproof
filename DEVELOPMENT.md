@@ -14,6 +14,7 @@ npm run skill:validate
 npm run skill:install -- --all
 npm run skill:doctor
 npm run evals:run
+npm run evals:score -- --eval evals/full-security-baseline.json --case high-risk-api-modern-risks --report docs/demo-reports/full-security-check-demo.md
 ```
 
 ## Repository structure
@@ -115,6 +116,12 @@ Instead, it turns fixture signals into deterministic baseline findings and check
 - each fixture can be evaluated by the matching skill baseline
 - required findings appear
 - forbidden overclaims do not appear
+
+`npm run evals:score -- --eval <file> --case <caseId> --report <file>` currently checks:
+
+- whether a freeform markdown or text report hits the required concepts for that case
+- whether the report avoids selected overclaim patterns
+- a simple percentage score based on matched concept assertions
 
 ## Contribution expectations
 

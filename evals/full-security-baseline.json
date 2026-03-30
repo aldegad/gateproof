@@ -10,6 +10,51 @@
         "User-controlled outbound fetch creates SSRF or trust-boundary risk.",
         "CI or delivery pipeline trust boundaries are weak."
       ],
+      "reportAssertions": [
+        {
+          "id": "authz-risk",
+          "anyOf": [
+            "object and admin authorization failure",
+            "object-level authorization risk",
+            "authorization checks",
+            "unauthenticated /admin/users route"
+          ]
+        },
+        {
+          "id": "ssrf-risk",
+          "anyOf": [
+            "ssrf",
+            "outbound request trust control",
+            "attacker-controlled urls",
+            "/preview?url="
+          ]
+        },
+        {
+          "id": "cicd-trust-risk",
+          "anyOf": [
+            "ci/cd trust boundary",
+            "pull_request_target",
+            "production secret exposure",
+            "privileged workflow execution"
+          ]
+        }
+      ],
+      "reportShouldAvoid": [
+        {
+          "id": "secure-because-logging",
+          "anyOf": [
+            "secure because basic logging exists",
+            "safe because logs exist"
+          ]
+        },
+        {
+          "id": "compliance-only-framing",
+          "anyOf": [
+            "compliance-only review is sufficient",
+            "no deeper analysis is needed beyond compliance"
+          ]
+        }
+      ],
       "shouldAvoid": [
         "Calling the target secure because basic logging exists.",
         "Stopping at compliance language without exploit-focused analysis."
@@ -21,6 +66,40 @@
       "mustFind": [
         "The baseline looks healthier than the high-risk fixture.",
         "Residual risk depends on deployment details not present in the fixture."
+      ],
+      "reportAssertions": [
+        {
+          "id": "healthier-baseline",
+          "anyOf": [
+            "baseline looks healthier",
+            "stronger than the risky fixture baseline",
+            "healthier than the high-risk fixture"
+          ]
+        },
+        {
+          "id": "residual-risk-noted",
+          "anyOf": [
+            "residual risk depends on deployment details",
+            "deployment details not present in the fixture",
+            "cannot be trusted without deployment details"
+          ]
+        }
+      ],
+      "reportShouldAvoid": [
+        {
+          "id": "invented-auth-bypass",
+          "anyOf": [
+            "confirmed auth bypass",
+            "proven authentication bypass"
+          ]
+        },
+        {
+          "id": "invented-public-admin",
+          "anyOf": [
+            "public admin surface is exposed",
+            "admin route is publicly reachable"
+          ]
+        }
       ],
       "shouldAvoid": [
         "Inventing an auth bypass without evidence.",

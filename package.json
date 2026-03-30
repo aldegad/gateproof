@@ -10,6 +10,7 @@
   },
   "scripts": {
     "evals:run": "node ./scripts/run-evals.mjs",
+    "evals:score": "node ./scripts/run-evals.mjs --score-report",
     "skill:install": "node ./scripts/install.mjs",
     "skill:doctor": "node ./scripts/doctor.mjs",
     "skill:validate": "node ./scripts/validate-skills.mjs"

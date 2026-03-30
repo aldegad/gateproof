@@ -17,6 +17,7 @@ What already exists:
 - a demo target and paired example reports
 - validation, install, and doctor scripts
 - runnable baseline eval script for fixture-backed expectations
+- report scoring mode for grading freeform skill outputs against case assertions
 
 What this means in practice:
 
@@ -90,6 +91,7 @@ The project now includes:
 
 - no automated evaluator yet consumes `evals/*.json`
 - eval runner is deterministic baseline logic, not real skill-output grading yet
+- report scoring is concept-based and intentionally lightweight, not a full semantic evaluator
 - no machine-generated evidence collection from live targets
 - no versioned coverage matrix against complete KISA or ASVS catalogs
 - no stack-specific variants for Node, Java, Python, Go, Rails, or Spring

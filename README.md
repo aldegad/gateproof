@@ -119,6 +119,7 @@ npm run skill:install
 npm run skill:doctor
 npm run skill:validate
 npm run evals:run
+npm run evals:score -- --eval evals/kisa-baseline.json --case high-risk-api-kisa-gaps --report docs/demo-reports/kisa-check-demo.md
 ```
 
 After install, the two intended skill names are:
@@ -151,6 +152,7 @@ Use gateproof:full-security-check on this API service and prioritize the top rea
 - Machine-readable fixtures: [fixtures/README.md](./fixtures/README.md)
 - Early eval expectations: [evals/README.md](./evals/README.md)
 - Runnable baseline evals: `npm run evals:run`
+- Freeform report scoring: `npm run evals:score -- --eval <eval.json> --case <caseId> --report <report.md>`
 
 ## Repository layout
 
@@ -195,3 +197,4 @@ It is an independent open-source skill set that helps teams separate:
 - add deployment and cloud review references
 - add report templates for pull-request reviews and release gates
 - evolve the baseline eval runner toward report-quality scoring against real skill outputs
+- add richer rubric matching so report scoring can grade structure and remediation quality, not just concept coverage

@@ -10,6 +10,51 @@
         "Secrets are not embedded in source control.",
         "Admin activity is auditable."
       ],
+      "reportAssertions": [
+        {
+          "id": "admin-access-constrained",
+          "anyOf": [
+            "admin remote access is constrained",
+            "remote admin access is constrained",
+            "mfa or stronger admin auth evidence",
+            "admin authentication posture appears stronger"
+          ]
+        },
+        {
+          "id": "secrets-not-in-source",
+          "anyOf": [
+            "secrets are not embedded in source control",
+            "no hardcoded secret",
+            "secret fallback is not present",
+            "secrets are externalized"
+          ]
+        },
+        {
+          "id": "residual-risk-noted",
+          "anyOf": [
+            "residual risk depends on deployment details",
+            "evidence depth still matters",
+            "depends on deployment proof",
+            "supporting evidence still matters"
+          ]
+        }
+      ],
+      "reportShouldAvoid": [
+        {
+          "id": "invented-cloud-misconfig",
+          "anyOf": [
+            "confirmed cloud misconfiguration",
+            "proven cloud misconfiguration"
+          ]
+        },
+        {
+          "id": "invented-active-exploit",
+          "anyOf": [
+            "active exploitation is confirmed",
+            "ongoing exploitation is confirmed"
+          ]
+        }
+      ],
       "shouldAvoid": [
         "Claiming confirmed cloud misconfiguration without evidence.",
         "Claiming active exploitation without runtime proof."
@@ -22,6 +67,51 @@
         "Public admin surface increases audit risk.",
         "Secrets handling does not meet baseline expectations.",
         "Sensitive logging behavior needs remediation."
+      ],
+      "reportAssertions": [
+        {
+          "id": "public-admin-risk",
+          "anyOf": [
+            "public admin surface",
+            "public admin host",
+            "admin route exposure",
+            "/admin/users"
+          ]
+        },
+        {
+          "id": "secret-handling-risk",
+          "anyOf": [
+            "hardcoded secret",
+            "fallback secret",
+            "secret fallback",
+            "hardcoded fallback secret"
+          ]
+        },
+        {
+          "id": "sensitive-logging-risk",
+          "anyOf": [
+            "sensitive logging behavior",
+            "request body logging",
+            "logging may capture credentials",
+            "credential-bearing request bodies"
+          ]
+        }
+      ],
+      "reportShouldAvoid": [
+        {
+          "id": "all-critical-overclaim",
+          "anyOf": [
+            "every finding is critical",
+            "all findings are critical"
+          ]
+        },
+        {
+          "id": "unsupported-pass-claim",
+          "anyOf": [
+            "the target should pass",
+            "likely pass as-is"
+          ]
+        }
       ],
       "shouldAvoid": [
         "Ranking every finding as critical.",
